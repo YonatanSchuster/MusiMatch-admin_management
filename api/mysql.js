@@ -29,10 +29,12 @@ let db_posts = null;
 let db_tags = null;
 let db_comments = null;
 let db_tagsDesc = null;
+let db_ppu = null;
 
+//show me in the bar chart how many posts used specific tag
 app.get("/getTags", (req, res) => {
   connection.query(
-    "SELECT * FROM `TAGS_TAG_ID_TO_POST` ORDER BY `tag_id` DESC  ",
+    "SELECT * FROM `TAGS_TAG_ID_TO_POST`", //   "SELECT * FROM `TAGS_TAG_ID_TO_POST` ORDER BY `tag_id` DESC
     function (err, results, fields) {
       db_tagsDesc = results;
       console.log("posts id to tags id: ", db_tagsDesc); // results contains rows returned by server
@@ -40,20 +42,19 @@ app.get("/getTags", (req, res) => {
       res.send(db_tagsDesc);
     }
   );
-}); //SELECT id, name FROM TAGS INNER JOIN TAGS_TAG_ID_TO_POST ON TAGS.id = TAGS_TAG_ID_TO_POST.id
+});
 
-// TAG TO  user
-// app.get("/getTagsToPosts", (req, res) => {
-//   connection.query(
-//     "SELECT * FROM `TAGS_TAG_ID_TO_POSTS`",
-//     function (err, results, fields) {
-//       db_tags = results;
-//       console.log("all the tags: ", db_tags); // results contains rows returned by server
-//       //console.log(fields); // fields contains extra meta data about results, if available
-//       res.send(db_tags);
-//     }
-//   );
-// });
+app.get("/postsPerUser", (req, res) => {
+  connection.query(
+    "SELECT u.id, u.user_name ,COUNT(p.creator_id) AS 'num_of_posts' FROM `USERS` AS u LEFT JOIN `POSTS` AS p ON p.creator_id = u.id GROUP BY u.id ORDER BY `num_of_posts` DESC",
+    function (err, results, fields) {
+      db_ppu = results;
+      console.log("posts id to tags id: ", db_ppu); // results contains rows returned by server
+      //console.log(fields); // fields contains extra meta data about results, if available
+      res.send(db_ppu);
+    }
+  );
+});
 
 // get all posts
 app.get("/getAllPosts", (req, res) => {

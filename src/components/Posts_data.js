@@ -53,70 +53,75 @@ function Posts_data() {
 
   return (
     <>
-      <Typography
-        sx={{ flex: "1 1 100%" }}
-        variant="h5"
-        id="tableTitle"
-        component="div"
-      >
-        Posts Table
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" title={"lala"}>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="center">Title</TableCell>
-              <TableCell align="center">Poem Lyrics</TableCell>
-              <TableCell align="center">Melody File Path</TableCell>
-              <TableCell align="center">Creator ID</TableCell>
-              <TableCell align="center">Post Type</TableCell>
-              <TableCell align="center">Average Rater ID</TableCell>
-              <TableCell align="center">Average Post Rate</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((data, index) => (
-                  <TableRow
-                    key={index}
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {data.id}
-                    </TableCell>
-                    <TableCell align="center">{data.title}</TableCell>
-                    <TableCell align="center">{data.poem_lyrics}</TableCell>
-                    <TableCell align="center">
-                      {data.melody_file_path}
-                    </TableCell>
-                    <TableCell align="center">{data.creator_id}</TableCell>
-                    <TableCell align="center">{data.post_type}</TableCell>
-                    <TableCell align="center">
-                      {data.average_rater_id}
-                    </TableCell>
-                    <TableCell align="center">
-                      {data.average_post_rate}
-                    </TableCell>
-                  </TableRow>
-                ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data?.length || 5}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div className="flex flex-col p-2.5 w-full">
+        <Typography
+          sx={{ flex: "1 1 100%" }}
+          variant="h4"
+          id="tableTitle"
+          component="div"
+        >
+          Posts Table
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead sx={{}}>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell align="center" font="bold ">
+                  Title
+                </TableCell>
+                <TableCell align="center">Poem Lyrics</TableCell>
+                <TableCell align="center">Melody File Path</TableCell>
+                <TableCell align="center">Creator ID</TableCell>
+                <TableCell align="center">Post Type</TableCell>
+                <TableCell align="center">Average Rater ID</TableCell>
+                <TableCell align="center">Average Post Rate</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data &&
+                data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((data, index) => (
+                    <TableRow
+                      key={index}
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {data.id}
+                      </TableCell>
+                      <TableCell align="center">{data.title}</TableCell>
+                      <TableCell align="center">{data.poem_lyrics}</TableCell>
+                      <TableCell align="center">
+                        {data.melody_file_path}
+                      </TableCell>
+                      <TableCell align="center">{data.creator_id}</TableCell>
+                      <TableCell align="center">{data.post_type}</TableCell>
+                      <TableCell align="center">
+                        {data.average_rater_id}
+                      </TableCell>
+                      <TableCell align="center">
+                        {data.average_post_rate}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={data?.length || 5}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
     </>
   );
 }

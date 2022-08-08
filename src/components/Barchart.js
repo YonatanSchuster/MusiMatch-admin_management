@@ -11,7 +11,9 @@ import {
   Legend,
 } from "recharts";
 
-function Statistics_data() {
+
+
+function Statistics_BarChart_Data() {
   const [Tags, setTags] = useState(null);
 
   useEffect(() => {
@@ -22,58 +24,29 @@ function Statistics_data() {
     };
     getAllTags();
   }, []);
-
-  const ttp =
-    Tags &&
-    Tags.map((tag) => {
-      return {
-        id: tag.id,
-        post_id: tag.post_id,
-        tag_id: tag.tag_id,
-      };
-    });
-
-  const data = [
-    {
-      name: "Happy",
-
-      numberOfPosts: 2,
-    },
-    {
-      name: "sad",
-
-      numberOfPosts: 1,
-    },
-    {
-      name: "exciting",
-
-      numberOfPosts: 1,
-    },
-    {
-      name: "emotional",
-
-      numberOfPosts: 1,
-    },
-    {
-      name: "inspiring",
-
-      numberOfPosts: 3,
-    },
-    {
-      name: "crying",
-
-      numberOfPosts: 2,
-    },
+  
+  const tagToPosts = [
+    { name: "Happy", numberOfPosts: 0 },
+    { name: "Sad", numberOfPosts: 0 },
+    { name: "Exciting", numberOfPosts: 0 },
+    { name: "Emotional", numberOfPosts: 0 },
+    { name: "Inspiring", numberOfPosts: 0 },
+    { name: "Crying", numberOfPosts: 0 },
   ];
+  Tags &&
+    Tags.forEach((tag) => {
+      tagToPosts[tag.tag_id - 1].numberOfPosts++;
+    });
 
   return (
     <>
-      <h1>kkkk</h1>
+
+      <h1 className="text-2xl">Posts Per Tags</h1>
 
       <BarChart
         width={650}
         height={400}
-        data={data}
+        data={tagToPosts}
         margin={{
           top: 5,
           right: 30,
@@ -88,11 +61,11 @@ function Statistics_data() {
         <Legend />
         <Bar
           dataKey="numberOfPosts"
-          fill="#8884d8"
+          fill="#63768D"
           background={{ fill: "#eee" }}
         />
       </BarChart>
     </>
   );
 }
-export default Statistics_data;
+export default Statistics_BarChart_Data;
