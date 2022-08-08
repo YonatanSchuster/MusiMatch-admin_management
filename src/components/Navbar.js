@@ -12,11 +12,11 @@ const items = [
     value: "Users management",
     href: "/users/all",
   },
-  {
-    id: 3,
-    value: "Statistics",
-    href: "/statistics",
-  },
+  // {
+  //   id: 3,
+  //   value: "Statistics",
+  //   href: "/statistics",
+  // },
 ];
 
 function Navbar() {
